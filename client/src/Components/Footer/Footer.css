@@ -1,0 +1,81 @@
+.footer-container {
+  background-size: cover;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  justify-content: center;
+  gap: 2vw;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.footer-container .main {
+  display: flex;
+  justify-content: space-between;
+}
+.footer-container .main span {
+  padding-right: 200px;
+}
+.footer-container .second-side {
+  display: flex;
+  gap: 2vw;
+}
+.footer-container .first-slide {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-left: 10px;
+}
+.footer-container .first-slide h2 {
+  text-transform: uppercase;
+}
+.footer-container .icons {
+  display: flex;
+  gap: 1vw;
+}
+.footer-container .icons span {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 30px;
+}
+.footer-container .icons span:hover {
+  transform: scale(1.1);
+}
+.footer-container .spans {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-container h2 {
+  margin-bottom: 20px;
+}
+.footer-container div p {
+  font-size: calc(0.6rem + 0.4vw);
+}
+.footer-container div div span {
+  font-size: calc(0.6rem + 0.4vw);
+}
+.footer-container div h2 {
+  font-size: 1.3rem;
+}
+
+.dark {
+  background-color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer-container .first-slide {
+    width: 95%;
+  }
+  .footer-container .second-side {
+    display: flex;
+    gap: 2vw;
+  }
+}/*# sourceMappingURL=Footer.css.map */
