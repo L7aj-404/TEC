@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 
 function News() {
@@ -10,7 +11,7 @@ function News() {
     useEffect(() => {
         async function fetchServices() {
             try {
-                const response = await axios.get('http://localhost:4040/services');
+                const response = await axios.get('http://localhost:8000/api/service');
                 setServices(response.data);
                 console.log(response.data); // Check if data is received
             } catch (err) {
@@ -23,8 +24,8 @@ function News() {
     async function handleDeleteService(id) {
         console.log('Deleting user with id:', id);
         try {
-            await axios.delete(`http://localhost:4040/service/${id}`);
-            setServices(services.filter(service => service._id !== id));
+            await axios.delete(`http://localhost:8000/api/service/${id}`);
+            setServices(services.filter(service => service.id !== id));
         } catch (err) {
             console.error(err);
         }
@@ -35,7 +36,8 @@ function News() {
     return (
         <div className="container">
         <h1>Services</h1>
-        <button class="btn btn-primary">Add Service</button>
+        <Link to='/addservice' className="btn btn-primary">Add Service</Link>
+
         <table className="table table-bordered">
             <thead className="thead-dark">
             <tr>
@@ -43,23 +45,23 @@ function News() {
                 <th>Title</th>
                 <th>Body</th>
                 <th>Action</th>
-                
+
             </tr>
             </thead>
             <tbody>
-            
+
             {services.map(service => (
-                <tr key={service._id}>
-                    <td>{service._id}</td>
+                <tr key={service.id}>
+                    <td>{service.id}</td>
                     <td>{service.title}</td>
-                    <td>{service.body}</td>
-                    
+                    <td>{service.description}</td>
+
                     <td>
                         <button className='bttn' >
                             <FontAwesomeIcon icon={faEdit} size="lg" color="#333" style={{ marginRight: '10px' }} />
                             </button>
                         <button className='bttn'>
-                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteService(service._id)} />
+                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteService(service.id)} />
                         </button>
                     </td>
                 </tr>

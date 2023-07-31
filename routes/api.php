@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PosteController;
 use App\Http\Controllers\RequesteController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::post('/signup', [UserController::class,'signup']);
 Route::post('/login', [UserController::class,'login']);
+Route::post('/restpassword', [UserController::class,'restpassword'])->middleware('guest');
 Route::get('/infos/{id}', [UserController::class,'info']);
 Route::get('/users', [UserController::class,'users']);
 Route::delete('/user/{id}', [UserController::class,'deleteUser']);
@@ -30,4 +32,5 @@ Route::resource('requeste',RequesteController::class);
 Route::get('requestecount',[RequesteController::class,'conteRequeste']);
 Route::resource('poste',PosteController::class);
 Route::get('/postecount',[PosteController::class,'contePost']);
+Route::resource('service',ServiceController::class);
 

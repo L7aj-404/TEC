@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
 use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -70,6 +71,17 @@ try {
 
     }
 
+    public function restpassword(Request $request){
+          $request->validate(['email'=>'required|email']);
+          $response = Password::sendResetLink(
+            $request->only('email')
+          );
+
+          return  $response == Password::RESET_LINK_SENT
+          ?response()->json(['message' => 'Reset link sent successfully'],200)
+          :response()->json(['error' => 'Unaoble to send reset link'],422);
+
+    }
     public function info($id){
           $user = User::find($id);
           return  $user;

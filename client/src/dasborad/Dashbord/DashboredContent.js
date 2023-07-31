@@ -9,6 +9,7 @@ import Services from './dashbordpages/Services'
 import { useAuth } from '../../hook/useAuth';
 import Homepage from '../../pages/Homepage';
 import AddPost from './dashbordpages/AddPost';
+import AddService from './dashbordpages/AddService';
 const DashboredContent = () => {
 
   const {user} =useAuth()
@@ -22,6 +23,7 @@ const DashboredContent = () => {
     <Route  path="/request" element={<Requests/>}></Route>
     <Route  path="/admin" element={<Admin/>}></Route>
     <Route  path="/services" element={<Services/>}></Route>
+    <Route  path="/addservice" element={<AddService/>}></Route>
 
   </Routes>
   );
