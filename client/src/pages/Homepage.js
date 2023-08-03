@@ -5,17 +5,17 @@ import Services from '../Components/Services/Services'
 import Contact from '../Components/contact/Contact'
 import Accordian from '../Components/accordion/Accordian'
 
-export default function Homepage() {
+export default function Homepage( {open, setClick, setOpen }) {
   return (
    <>
-     
-    <Intro/>
+
+    <Intro  setOpen={setOpen}  setClick={setClick}/>
     <About />
      <Services/>
      <Accordian/>
      <Contact/>
-     
-       
+
+
     </>
   )
 }

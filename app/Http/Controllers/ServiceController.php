@@ -37,9 +37,17 @@ class ServiceController extends Controller
 
             ]);
 
+            $image = $request->file('image');
+
+            $imagePath= $image->getClientOriginalName();
+
+            $image->move('service', $imagePath);
+
+
             $service =new Service();
             $service ->title =$request->title;
             $service ->description =$request->description;
+            $service->image=$imagePath;
             $service->save();
 
         } catch (\Throwable $th) {

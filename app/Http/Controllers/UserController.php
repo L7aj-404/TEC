@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Password;
 use PhpParser\Node\Expr\Cast\String_;
 use PhpParser\Node\Stmt\TryCatch;
@@ -30,10 +33,13 @@ try {
             $user ->email =$request->email;
             $user ->password =Hash::make($request->password) ;
             $user->save();
+            $token = $user->createToken($user->email.'_Token')->plainTextToken;
             // User::create($request->post());
             return response()->json([
-                "mesg"=>"signup done",
-                "data"=>$user
+                "status"=>200,
+                "username"=>$user->firstname.'_'.$user->lastname,
+                "token" => $token,
+                "message" => "Rejistraction success"
 
             ]);
 
@@ -56,15 +62,19 @@ try {
             if (Auth::attempt($credentials)) {
                 $user = Auth::getUser();
                 return response()->json([
-                        "message"=>"signup done",200,
-                        "data"=>$user
+                    "status"=>200,
+
+                    "id"=>$user->id,
+                    "token" => $user->token,
+                    "message" => "login success"
 
                     ]);
 
             }else {
                 return response()->json([
-                    "message"=>"invalid email or password",401,
-                    "data"=>null
+                    "status"=>401,
+                    "message"=>"invalid email or password",
+
 
                 ]);
             }
@@ -72,7 +82,24 @@ try {
     }
 
     public function restpassword(Request $request){
-          $request->validate(['email'=>'required|email']);
+          $request->validate(['email'=>'required|email|exists:users,email']);
+        //   $token =base64_decode(Str::random(64));
+        //   DB::table('password_reset_tokens')->insert([
+        //     'email' => $request->only('email'),
+        //     'token' =>$token,
+        //     'created_at' => Carbon::now()
+        //   ]);
+        //   $user = User::where('email',$request->only('email'))->first();
+        //   $link = 'http://localhost:3000/reset';
+        //   $body_message ='to reset your passwor click her'.$link;
+        //   $data= array(
+        //     'name' => $user->firstname,
+        //   );
+        //   Mail::send('forgot-email',$data,function($message)use ($user){
+        //     $message->from('norplay@exempel.com','Larablog');
+        //     $message->to($user->email,$user->firstname)
+        //             ->subject('Reset Password');
+        //   });
           $response = Password::sendResetLink(
             $request->only('email')
           );
@@ -84,7 +111,12 @@ try {
     }
     public function info($id){
           $user = User::find($id);
-          return  $user;
+          return  response()->json([
+                    "firstname"=>$user->firstname,
+                    "lastname"=>$user->lastname,
+                    "age"=>$user->age,
+                    "email"=>$user->email,
+          ]);
 
     }
     public function users(){

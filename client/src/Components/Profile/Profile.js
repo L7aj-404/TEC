@@ -11,7 +11,7 @@ export const Profile = () => {
     useEffect(() => {
         async function fetchServices() {
             try {
-                const response = await axios.get('http://localhost:8000/api/infos/'+user.data.id);
+                const response = await axios.get('http://localhost:8000/api/infos/'+user.id);
 
               setInfo(response.data); // Check if data is received
             } catch (err) {

@@ -11,7 +11,7 @@ import { Button, Tooltip } from '@mui/material';
 import { useAuth } from '../../hook/useAuth';
 import { useLogout } from '../../hook/useLogout';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTheme } from '../../hook/useTheme';
 
 export const NavItemLinks = [
@@ -41,9 +41,12 @@ function Navbar({ click, setClick, setOpen }) {
   const {logout}=useLogout()
    const {theme,toggelTheme}=useTheme()
 
+   const navigate = useNavigate()
 const handeLogOut=()=>{
 
   logout()
+
+ navigate('/')
 
 }
 

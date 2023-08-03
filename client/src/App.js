@@ -18,6 +18,7 @@ import LayoutC from "./dasborad/Dashbord/Layout/LayoutC";
 import DashboredContent from "./dasborad/Dashbord/DashboredContent";
 import Verifypassword from "./pages/Verifypassword";
 import Restpassword from "./pages/Restpassword";
+import Requiste from "./pages/Requiste";
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
 
 
 const {user}=useAuth()
-console.log(user);
+// console.log(user);
 const {theme}=useTheme()
 
 
@@ -56,11 +57,12 @@ const {theme}=useTheme()
 
        </BasicModal>
        <Routes>
-        <Route index path="/" element={<Homepage />} />
+        <Route index path="/" element={<Homepage open={open} setOpen={setOpen} click={click} setClick={setClick}/>} />
         <Route path="/Verifypassword/:id/:token" element={<Verifypassword />} />
         <Route path="/restpassword" element={<Restpassword />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/services" element={<Servicespage />} />
+        <Route path="/requiste" element={<Requiste />} />
          <Route path="/profile" element={user  ?  <Profile />: <Navigate to="/"/>} />
          {/* <Route path="/login" element={  <BasicModal open={open} setClick={setClick}   setOpen={setOpen} >
                  hello

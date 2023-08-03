@@ -1,6 +1,8 @@
+
 import { useAuth } from './useAuth'
 
 export const useLogout = () =>{
+    
 
     const {dispatch}=useAuth()
      const logout = () =>{
@@ -10,6 +12,7 @@ export const useLogout = () =>{
         // dispatch logout action
 
         dispatch({type:"LOGOUT"})
+       
      }
 
      return { logout}
