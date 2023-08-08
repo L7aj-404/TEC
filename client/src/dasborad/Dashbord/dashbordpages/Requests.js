@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Back_end_Url } from '../../../api/URLs'
 
 
 function Requests() {
@@ -10,7 +11,7 @@ function Requests() {
     useEffect(() => {
         async function fetchRequests() {
             try {
-                const response = await axios.get('http://localhost:8000/api/requeste');
+                const response = await axios.get(Back_end_Url+'/api/requeste');
                 setRequests(response.data);
                 console.log(response.data); // Check if data is received
             } catch (err) {
@@ -23,7 +24,7 @@ function Requests() {
     async function handleDeleteRequest(id) {
         console.log('Deleting user with id:', id);
         try {
-            await axios.delete(`http://localhost:8000/api/requeste/${id}`);
+            await axios.delete(`${Back_end_Url}/api/requeste/${id}`);
             setRequests(requests.filter(request => request.id !== id));
         } catch (err) {
             console.error(err);
@@ -32,7 +33,7 @@ function Requests() {
     async function handleDisplayRequest(requestId) {
       console.log('Displaying request with id:', requestId);
       try {
-          const response = await axios.get(`http://localhost:8000/api/requeste/${requestId}`);
+          const response = await axios.get(`${Back_end_Url}/api/requeste/${requestId}`);
           window.open(`data:application/json,${encodeURIComponent(JSON.stringify(response.data))}`);
           console.log(response.data);
       } catch (err) {

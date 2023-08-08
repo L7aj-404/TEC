@@ -1,18 +1,33 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import '../Services/Services.scss'
 import Carousel from 'react-bootstrap/Carousel';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import service from '../Services/services.jpg'
-
+import axios from "axios";
 import { useTheme } from '../../hook/useTheme';
 import styled from 'styled-components';
+import { Back_end_Url } from '../../api/URLs';
 function Services() {
 
   const {theme}=useTheme()
    const [index , setIndex] = useState(2)
+   const [service, setService] = useState([]);
    const handleSelect = () => {
     setIndex()
    }
+
+   useEffect(() => {
+       async function fetchService() {
+           try {
+               const response = await axios.get(Back_end_Url+'/api/service');
+               setService(response.data);
+               console.log(response.data); // Check if data is received
+           } catch (err) {
+               console.error(err);
+           }
+       }
+       fetchService();
+   }, []);
 
   return (
     <div className='services-container'>
@@ -27,56 +42,30 @@ function Services() {
         </Bar>
         <div className='carousel-container'>
         <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item>
-        <div className='carousel-container-content'>   <img
-        
-          src={service}
-          alt="First slide"
-        />
-        <div>
-          <p >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis tincidunt, vestibulum arcu vel, venenatis urna. Suspendisse potenti. Fusce non facilisis nisi. Vestibulum vel nulla ut purus ullamcorper blandit. Nam malesuada justo sed magna ultricies, a interdum turpis euismod. Nulla facilisi.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis tincidunt, vestibulum arcu vel, venenatis urna. Suspendisse potenti. Fusce non facilisis nisi. Vestibulum vel nulla ut purus ullamcorper blandit. Nam malesuada justo sed magna ultricies, a interdum turpis euismod. Nulla facilisi.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac fel
-            </p>
-          </div></div>
-      </Carousel.Item>
-      <Carousel.Item>
-        <div className='carousel-container-content'>    <img
-        
-         src={service}
-          alt="Second slide"
-        />
-        <div>Service2</div>
-</div>
-    
-        {/* <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption> */}
-      </Carousel.Item>
-      <Carousel.Item>
-        <div className='carousel-container-content'>  <img
-       
-         src={service}
-          alt="Third slide"
-        />
-        <div>Service3</div>
-</div>
-      
-        {/* <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption> */}
-      </Carousel.Item>
+            {
+                service.map((item,index)=>
+                <Carousel.Item key={index}>
+                    <div className='carousel-container-content' >   <img
+
+                    src={`http://localhost:8000/storage/${item.image}`}
+                    alt={' Slide '+index}
+                    />
+                        <div className="row p-3 text-center">
+                            <h2>{item.title}</h2>
+                            <p >
+                            {item.description}
+                            </p>
+                        </div>
+                    </div>
+                </Carousel.Item>)
+            }
+
     </Carousel>
         </div>
     </div>
     </div>
-      
- 
+
+
   )
 }
 

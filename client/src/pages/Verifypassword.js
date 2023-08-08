@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import styled from 'styled-components'
 import { useTheme } from '../hook/useTheme';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Back_end_Url } from '../api/URLs';
 
 export default function Verifypassword() {
 
@@ -20,11 +21,11 @@ export default function Verifypassword() {
 
     const userValid = async () =>{
 
-      
-      const response = await fetch(`http://localhost:4040/api/user/Verifypassword/${id}/${token}`, {
+
+      const response = await fetch(`${Back_end_Url}/api/user/Verifypassword/${id}/${token}`, {
         method: 'GET',
         headers: {'Content-Type': 'application/json'},
-       
+
       })
 
       console.log(response);
@@ -33,7 +34,7 @@ export default function Verifypassword() {
 
       if (data.status==201) {
         console.log("user valid");
-      } 
+      }
       if (data.status==401) {
         nav("/")
       }
@@ -55,7 +56,7 @@ export default function Verifypassword() {
 
     const sendpassword=async(e)=>{
       e.preventDefault();
-       const response = await fetch(`http://localhost:4040/api/user/Verifypassword/${id}/${token}`, {
+       const response = await fetch(`${Back_end_Url}/api/user/Verifypassword/${id}/${token}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -66,10 +67,10 @@ export default function Verifypassword() {
             console.log(response);
             const data = await response.json()
            console.log(data);
-      
+
             if (data.status==201) {
               console.log("user valid");
-            } 
+            }
             if (data.status==401) {
               nav("/")
             }
@@ -78,12 +79,12 @@ export default function Verifypassword() {
   return (
     <Container>
        <div style={{ width:"80%" }}>
-   
+
       <Form>
-     
+
         <Form.Group className='my-4 pt-5'>
           <Form.Label style={{ color: theme=="dark" ? "#fcfcfc":"#010c10"  }}>Enter new password:</Form.Label>
-          <Form.Control  type="password" 
+          <Form.Control  type="password"
           value={password}
           onChange={(e)=>setPassord(e.target.value)}
           placeholder="Enter your new  password" />

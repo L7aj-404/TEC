@@ -31,7 +31,31 @@ class RequesteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $request -> validate([
+                'firstname'=> 'required',
+                'lastname'=> 'required',
+                'companyName'=> 'required',
+                'peojectType'=> 'required',
+                'email'=> 'required|email',
+                'phone'=> 'required|min:10',
+                'comment'=> 'required|min:25',
+
+            ]);
+
+            $req =new Requeste();
+            $req ->fullname =$request->firstname.' '.$request->lastname;
+            $req ->companyName =$request->companyName;
+            $req ->peojectType =$request->peojectType;
+            $req ->email =$request->email;
+            $req ->phone =$request->phone;
+            $req ->comment =$request->comment;
+            $req->save();
+
+        } catch (\Throwable $th) {
+            throw $th;
+
+        }
     }
 
     /**

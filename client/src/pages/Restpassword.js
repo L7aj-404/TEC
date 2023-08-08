@@ -7,6 +7,7 @@ import axios from 'axios';
 import Alert from 'react-bootstrap/Alert';
 import styled from 'styled-components'
 import { useTheme } from '../hook/useTheme';
+import { Back_end_Url } from '../api/URLs';
 
 export default function Restpassword() {
 const [email,setEmail]=useState("")
@@ -14,7 +15,7 @@ const [error,setError]=useState("")
 const [status,setStatus]=useState("")
   const {theme}=useTheme()
 
-   
+
 
 
 
@@ -23,7 +24,7 @@ const [status,setStatus]=useState("")
      e.preventDefault()
 
     try {
-        await axios.post(`http://localhost:8000/api/restpassword`,{email}).then((response)=>{
+        await axios.post(`${Back_end_Url}/api/restpassword`,{email}).then((response)=>{
 
 
             console.log(response.data.status);

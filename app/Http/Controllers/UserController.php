@@ -37,6 +37,8 @@ try {
             // User::create($request->post());
             return response()->json([
                 "status"=>200,
+                "id"=>$user->id,
+                "role"=>$user->role,
                 "username"=>$user->firstname.'_'.$user->lastname,
                 "token" => $token,
                 "message" => "Rejistraction success"
@@ -63,8 +65,8 @@ try {
                 $user = Auth::getUser();
                 return response()->json([
                     "status"=>200,
-
                     "id"=>$user->id,
+                    "role"=>$user->role,
                     "token" => $user->token,
                     "message" => "login success"
 
@@ -83,23 +85,6 @@ try {
 
     public function restpassword(Request $request){
           $request->validate(['email'=>'required|email|exists:users,email']);
-        //   $token =base64_decode(Str::random(64));
-        //   DB::table('password_reset_tokens')->insert([
-        //     'email' => $request->only('email'),
-        //     'token' =>$token,
-        //     'created_at' => Carbon::now()
-        //   ]);
-        //   $user = User::where('email',$request->only('email'))->first();
-        //   $link = 'http://localhost:3000/reset';
-        //   $body_message ='to reset your passwor click her'.$link;
-        //   $data= array(
-        //     'name' => $user->firstname,
-        //   );
-        //   Mail::send('forgot-email',$data,function($message)use ($user){
-        //     $message->from('norplay@exempel.com','Larablog');
-        //     $message->to($user->email,$user->firstname)
-        //             ->subject('Reset Password');
-        //   });
           $response = Password::sendResetLink(
             $request->only('email')
           );
@@ -107,6 +92,17 @@ try {
           return  $response == Password::RESET_LINK_SENT
           ?response()->json(['message' => 'Reset link sent successfully'],200)
           :response()->json(['error' => 'Unaoble to send reset link'],422);
+
+    }
+    public function Verifypassword(Request $request){
+        //   $request->validate(['email'=>'required|email|exists:users,email']);
+        //   $response = Password::sendResetLink(
+        //     $request->only('email')
+        //   );
+
+        //   return  $response == Password::RESET_LINK_SENT
+        //   ?response()->json(['message' => 'Reset link sent successfully'],200)
+        //   :response()->json(['error' => 'Unaoble to send reset link'],422);
 
     }
     public function info($id){

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { Back_end_Url } from '../../../api/URLs'
 
 
 function News() {
@@ -11,7 +12,7 @@ function News() {
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const response = await axios.get('http://localhost:8000/api/poste');
+                const response = await axios.get(Back_end_Url+'/api/poste');
                 setPosts(response.data);
                 console.log(response.data); // Check if data is received
             } catch (err) {
@@ -24,7 +25,7 @@ function News() {
     async function handleDeletePost(id) {
         console.log('Deleting post with id:', id);
         try {
-            await axios.delete(`http://localhost:8000/api/poste/${id}`);
+            await axios.delete(`${Back_end_Url}/api/poste/${id}`);
             setPosts(posts.filter(post => post.id !== id));
         } catch (err) {
             console.error(err);

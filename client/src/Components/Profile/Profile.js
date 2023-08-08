@@ -4,6 +4,7 @@ import "./style.css"
 
 import axios from 'axios';
 import { useAuth } from '../../hook/useAuth';
+import { Back_end_Url } from '../../api/URLs';
 
 export const Profile = () => {
     const {user}=useAuth()
@@ -11,7 +12,7 @@ export const Profile = () => {
     useEffect(() => {
         async function fetchServices() {
             try {
-                const response = await axios.get('http://localhost:8000/api/infos/'+user.id);
+                const response = await axios.get(Back_end_Url+'/api/infos/'+user.id);
 
               setInfo(response.data); // Check if data is received
             } catch (err) {

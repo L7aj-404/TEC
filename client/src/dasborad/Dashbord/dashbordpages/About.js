@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 import { Back_end_Url } from '../../../api/URLs';
 
 
-function Services() {
-    const [services, setServices] = useState([]);
+function About() {
+    const [infos, setInfos] = useState([]);
 
     useEffect(() => {
         async function fetchServices() {
             try {
-                const response = await axios.get(Back_end_Url+'/api/service');
-                setServices(response.data);
+                const response = await axios.get(Back_end_Url+'/api/about');
+                setInfos(response.data);
                 console.log(response.data); // Check if data is received
             } catch (err) {
                 console.error(err);
@@ -25,8 +25,8 @@ function Services() {
     async function handleDeleteService(id) {
         console.log('Deleting user with id:', id);
         try {
-            await axios.delete(`${Back_end_Url}/api/service/${id}`);
-            setServices(services.filter(service => service.id !== id));
+            await axios.delete(Back_end_Url+`/api/about/${id}`);
+            setInfos(infos.filter(info => info.id !== id));
         } catch (err) {
             console.error(err);
         }
@@ -36,40 +36,34 @@ function Services() {
 
     return (
         <div className="container">
-        <h1>Services</h1>
-        <Link to='/addservice' className="btn btn-primary">Add Service</Link>
+        <h1>Abouts Info</h1>
+        <Link to='/addinfo' className="btn btn-primary">Add Info</Link>
 
         <table className="table table-bordered">
             <thead className="thead-dark">
             <tr>
                 <th>id</th>
                 <th>Title</th>
-                <th>Body</th>
-                <th>Image</th>
+                <th>Description</th>
                 <th>Action</th>
 
             </tr>
             </thead>
             <tbody>
 
-            {services.map(service => (
-                <tr key={service.id}>
-                    <td>{service.id}</td>
-                    <td>{service.title}</td>
-                    <td>{service.description}</td>
-                    <td><img className='w-100' src={`http://localhost:8000/storage/${service.image}`}/></td>
-
+            {infos.map(item => (
+                <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>{item.title}</td>
+                    <td>{item.description}</td>
                     <td>
                         <button className='bttn' >
                             <FontAwesomeIcon icon={faEdit} size="lg" color="#333" style={{ marginRight: '10px' }} />
                             </button>
                         <button className='bttn'>
-                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteService(service.id)} />
+                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteService(item.id)} />
                         </button>
-                        <button className='bttn'>
 
-                            <Link to={'/addaxeservice/'+service.id} className='btn btn-warning'>+ Axe</Link>
-                        </button>
 
                     </td>
                 </tr>
@@ -80,4 +74,4 @@ function Services() {
     );
 }
 
-export default Services;
+export default About;

@@ -12,30 +12,29 @@ import styled from '@emotion/styled';
 
 // });
 import {CradContainer} from "./style"
-export const Crad = () => {
+export const Crad = (props) => {
   return (
-    
-        <CradContainer>
+
+        <CradContainer >
     <CardActionArea>
         <CardActions sx={{marginLeft:'2%'}}>
            <GoCheck fontSize={20}/>
     </CardActions>
-      <CardContent>
+      <CardContent >
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {props.title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {props.text}
         </Typography>
       </CardContent>
     </CardActionArea>
     <CardActions>
-    
+
     </CardActions>
 
         </CradContainer>
-   
+
 
 );
 }

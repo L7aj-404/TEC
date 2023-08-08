@@ -1,25 +1,27 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Card, Crad } from "./Card"
 import  {AbouteContainer,Info,PuLL,Title,Pargraphe,ContainerCard} from "./style"
 import { useTheme } from "../../hook/useTheme"
+import axios from "axios"
+import { Back_end_Url } from "../../api/URLs"
 
 export default function About() {
 
 const {theme}=useTheme()
-  useEffect(()=>{
-      const fetchData=async()=>{
-          const res=await fetch("http://localhost:8000/api/items",{
-            method:"GET"
-          })
-            const json=await res.json()
+const [infos, setInfos] = useState([]);
 
-
-            console.log(json);
-
-
-      }
-      fetchData()
-  },[])
+useEffect(() => {
+    async function fetchServices() {
+        try {
+            const response = await axios.get(Back_end_Url+'/api/about');
+            setInfos(response.data);
+            console.log(response.data); // Check if data is received
+        } catch (err) {
+            console.error(err);
+        }
+    }
+    fetchServices();
+}, []);
   return (
    <AbouteContainer theme={theme}>
 
@@ -39,10 +41,12 @@ const {theme}=useTheme()
 
     </Info>
     <ContainerCard >
-       <Crad/>
-       <Crad/>
-       <Crad/>
-       <Crad/>
+        {
+            infos.map((item,index)=>
+            <Crad key={index} title={item.title} text={item.description} />
+            )
+        }
+
     </ContainerCard>
 
    </AbouteContainer>

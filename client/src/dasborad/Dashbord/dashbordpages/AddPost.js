@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { Alert, Button, Container } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { Back_end_Url } from '../../../api/URLs'
 
 function AddPost() {
     const [formdata, setFormData] = useState({})
@@ -13,7 +14,7 @@ function AddPost() {
         e.preventDefault();
         console.log('add post');
 
-            await axios.post(`http://localhost:8000/api/poste`,formdata).then(({data})=>{
+            await axios.post(`${Back_end_Url}/api/poste`,formdata).then(({data})=>{
                 console.log(data.message);
 
                 navigate('/news')

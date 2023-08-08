@@ -23,29 +23,23 @@ const AboutPage = () => {
             <div className='body'>
 
             <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis tincidunt, vestibulum arcu vel, venenatis urna. Suspendisse potenti. Fusce non facilisis nisi. Vestibulum vel nulla ut purus ullamcorper blandit. Nam malesuada justo sed magna ultricies, a interdum turpis euismod. Nulla facilisi.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis tincidunt, vestibulum arcu vel, venenatis urna. Suspendisse potenti. Fusce non facilisis nisi. Vestibulum vel nulla ut purus ullamcorper blandit. Nam malesuada justo sed magna ultricies, a interdum turpis euismod. Nulla facilisi.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis tincidunt, vestibulum arcu vel, venenatis urna. Suspendisse potenti. Fusce non facilisis nisi. Vestibulum vel nulla ut purus ullamcorper blandit. Nam malesuada justo sed magna ultricies, a interdum turpis euismod. Nulla facilisi.
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis tincidunt, vestibulum arcu vel, venenatis urna. Suspendisse potenti. Fusce non facilisis nisi. Vestibulum vel nulla ut purus ullamcorper blandit. Nam malesuada justo sed magna ultricies, a interdum turpis euismod. Nulla facilisi.
-
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ac felis tincidunt, vestibulum arcu vel, venenatis urna. Suspendisse potenti. Fusce non facilisis nisi. Vestibulum vel nulla ut purus ullamcorper blandit. Nam malesuada justo sed magna ultricies, a interdum turpis euismod. Nulla facilisi.
-              
+            Training Edge Consulting est une entreprise créée en 2021 offrant des services dans trois catégories principales :  bureau d’études, centre formation professionnelle et incubateur.
                </p>
 
-               <div className='img'> 
+               <div className='img'>
            <img className={theme=="dark" ? "exmple shadowDark":" exmple shadowLight"}  src={img} />
          </div>
             </div>
             </div>
-            
- 
-           
-         
+
+
+
+
           </div>
-         
+
         </div>
       </Container>
- 
+
     </ContainerAbout>
 
   );
@@ -75,7 +69,7 @@ padding-bottom:120px;
     justify-content:center;
     align-items:center;
 
-    
+
   }
 p{
   font-size:1vw;
@@ -93,7 +87,7 @@ text-align:justify;
    height:450px;
    display:flex;
    justify-content:center;
-   
+
   .exmple{
     width:70%;
     border-radius:20px;
@@ -108,7 +102,7 @@ text-align:justify;
   }
 }
 .title{
- 
+
   font-size:30px;
 position: relative;
 &::before{
@@ -153,7 +147,7 @@ object-fit: cover;
 
 }
 }
-  
+
     }
 
 `

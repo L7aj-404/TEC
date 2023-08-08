@@ -4,6 +4,7 @@ import {FcBusinessman,FcPositiveDynamic,FcCandleSticks} from 'react-icons/fc'
 import Requests from './Requests'
 import { useAuth } from '../../../hook/useAuth';
 import axios from 'axios';
+import { Back_end_Url } from '../../../api/URLs'
 // import {FcAnswers} from 'react-icons/fc'
 
 export const Home = () => {
@@ -15,7 +16,7 @@ export const Home = () => {
   useEffect(() => {
     async function fetchUsers() {
         try {
-            const response = await axios.get('http://localhost:8000/api/user/count');
+            const response = await axios.get(Back_end_Url+'/api/user/count');
             setContUsers(response.data);
             console.log(response.data); // Check if data is received
         } catch (err) {
@@ -25,7 +26,7 @@ export const Home = () => {
     fetchUsers();
     async function fetchPoste() {
         try {
-            const response = await axios.get('http://localhost:8000/api/postecount');
+            const response = await axios.get(Back_end_Url+'/api/postecount');
             setContPost(response.data);
             console.log(response.data); // Check if data is received
         } catch (err) {
@@ -35,7 +36,7 @@ export const Home = () => {
     fetchPoste();
     async function fetchRequeste() {
         try {
-            const response = await axios.get('http://localhost:8000/api/requestecount');
+            const response = await axios.get(Back_end_Url+'/api/requestecount');
             setContRequest(response.data);
             console.log(response.data); // Check if data is received
         } catch (err) {

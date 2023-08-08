@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
@@ -34,20 +36,21 @@ class ServiceController extends Controller
             $request -> validate([
                 'title'=> 'required',
                 'description'=> 'required|min:10',
+                'image' => 'required|image|mimes:jpeg,png,jpg,svg|max:2048'
 
             ]);
 
             $image = $request->file('image');
 
-            $imagePath= $image->getClientOriginalName();
+            $imageName=Str::random(32).".".$image->getClientOriginalExtension();
 
-            $image->move('service', $imagePath);
+            Storage::disk('public/service')->put($imageName, file_get_contents($image));
 
 
             $service =new Service();
             $service ->title =$request->title;
             $service ->description =$request->description;
-            $service->image=$imagePath;
+            $service->image=$imageName;
             $service->save();
 
         } catch (\Throwable $th) {

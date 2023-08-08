@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Back_end_Url } from '../../../api/URLs'
 
-function AddService() {
+function AddAbout() {
     const [formdata, setFormData] = useState({})
     const [iserror, setIserror] = useState(null)
     const navigate = useNavigate()
@@ -19,12 +19,12 @@ function AddService() {
         console.log(formdata);
 
 
-            await axios.post(`${Back_end_Url}/api/service`,formdata,{
+            await axios.post(`${Back_end_Url}/api/about`,formdata,{
                 headers:{'Content-Type':'multipart/form-data'}
             }).then(({data})=>{
                 console.log(data.message);
 
-                navigate('/services')
+                navigate('/about')
             })
 
         .catch (({response})=>{
@@ -58,7 +58,7 @@ function AddService() {
                 {iserror && <Alert sx={{ width: "100px" }} severity="error">{iserror}</Alert>}
 
                 <Typography component="h1" variant="h5">
-                    Add Service
+                    Add Info
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 
@@ -93,19 +93,7 @@ function AddService() {
                             autoComplete="add-content"
                         />
                     </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="image"
 
-                            onChange={e => setFormData({ ...formdata, image: e.target.files[0] })}
-
-                            name="image"
-                            type='file'
-                            autoComplete="add-content"
-                        />
-                    </Grid>
                     <br/>
 
                     <Button
@@ -115,7 +103,7 @@ function AddService() {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Add Service
+                        Add Info
                     </Button>
 
                 </Box>
@@ -125,4 +113,4 @@ function AddService() {
   )
 }
 
-export default AddService
+export default AddAbout

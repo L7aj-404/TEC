@@ -13,7 +13,7 @@ export const SlideBar = () => {
     <Bar className='bar'>
         <div className='logo'>
                   <GrUserAdmin/>
-              
+
                 </div>
      <div className='group-btn'>
 
@@ -22,8 +22,9 @@ export const SlideBar = () => {
         <NavLink  to="/news"><BsFillFilePostFill/> news</NavLink>
         <NavLink to="/request"><GoGitPullRequest/> request</NavLink>
         <NavLink to="/services"><GoGitPullRequest/> Services</NavLink>
+        <NavLink to="/about"><GoGitPullRequest/> About</NavLink>
 
-        
+
      </div>
 
     </Bar>
@@ -41,14 +42,14 @@ height: 100%;
     display:flex;
     flex-direction:column;
     height:95vh;
- 
+
     padding-top:50px;
    a{
     text-decoration:none;
-      
+
     padding:14px 70px;
     color:white;
- 
+
     margin:3px;
     border-radius:6px;
     display: flex;
@@ -64,13 +65,13 @@ height: 100%;
 &:focus {
   box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.1), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
   outline: 0;
- 
+
 
    }
 
    @media screen and (max-width:960px){
    padding:14px;
-  
+
     }
 }}
 

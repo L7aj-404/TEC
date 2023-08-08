@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Back_end_Url } from '../../../api/URLs';
 
 
 function Users() {
@@ -10,7 +11,7 @@ function Users() {
     useEffect(() => {
         async function fetchUsers() {
             try {
-                const response = await axios.get('http://localhost:8000/api/users');
+                const response = await axios.get(Back_end_Url+'/api/users');
                 setUsers(response.data);
                 console.log(response.data); // Check if data is received
             } catch (err) {
@@ -23,7 +24,7 @@ function Users() {
     async function handleDeleteUser(id) {
         console.log('Deleting user with id:', id);
         try {
-            await axios.delete(`http://localhost:8000/api/user/${id}`);
+            await axios.delete(`${Back_end_Url}/api/user/${id}`);
             setUsers(users.filter(user => user.id !== id));
         } catch (err) {
             console.error(err);

@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useEffect, useState} from "react";
 import "../Footer/Footer.scss";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -7,11 +7,27 @@ import EmailIcon from "@mui/icons-material/Email";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import RoomIcon from "@mui/icons-material/Room";
+import {Link} from "react-router-dom"
 import { useTheme } from "../../hook/useTheme";
+import axios from "axios";
+import { Back_end_Url } from "../../api/URLs";
 
 
 export default function Footer() {
 const {theme}=useTheme()
+const [services, setServices] = useState([]);
+useEffect(() => {
+      async function fetchService() {
+          try {
+              const response = await axios.get(Back_end_Url+'/api/service');
+              setServices(response.data);
+              console.log(response.data); // Check if data is received
+          } catch (err) {
+              console.error(err);
+          }
+      }
+      fetchService();
+  }, [])
   return (
     <div className={`footer-container `}  style={{
   backgroundColor:theme=="dark" ? "#010c10" : "white",
@@ -21,10 +37,7 @@ const {theme}=useTheme()
       <div className="first-slide">
         <h2>Training Edge Consulting</h2>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisici ng elit. Placeat
-          odit animi, debitis aut impedit vpsum dolor sit amet consectetur,
-          adipisici ng elit. Plpsum dolor sit amet consectetur, adipisici ng
-          elit. Plpsum dolor sit amet consectetur, adipisici ng elit.
+        Training Edge Consulting est une entreprise créée en 2021 offrant des services dans trois catégories principales :  bureau d’études, centre formation professionnelle et incubateur.
         </p>
         <main className="icons">
           <span>
@@ -46,20 +59,19 @@ const {theme}=useTheme()
       </div>
       <main className="second-side">
       <div>
-        <h2>Pages</h2>
-        <div className="spans">
-          <span>Home it work</span>
-          <span>Services</span>
-          <span>About-us</span>
-        </div>
+            <h2>Pages</h2>
+            <div className="spans">
+                <Link style={{textDecoration:'none', color:theme=="dark" ? "white" : "black"}} to='/'><span>Home it work</span></Link>
+                <Link style={{textDecoration:'none', color:theme=="dark" ? "white" : "black"}} to='/services'><span>Services</span></Link>
+                <Link style={{textDecoration:'none', color:theme=="dark" ? "white" : "black"}} to='/about'><span>About-us</span></Link>
+            </div>
       </div>
       <div>
-        <h2>Service</h2>
+        <h2>Services</h2>
         <div className="spans">
-          <span>Sevice 1</span>
-          <span>Sevice 2</span>
-          <span>Sevice 3</span>
-          <span>Sevice 4</span>
+            {
+                services.map((item,index)=><span>{item.title}</span>)
+            }
         </div>
       </div>
       <div>

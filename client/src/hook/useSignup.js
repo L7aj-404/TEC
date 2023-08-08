@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { useAuth } from './useAuth'
+import {Back_end_Url} from '../api/URLs'
 
 export const useSignup = () => {
   const [iserror, setIserror] = useState(null)
@@ -10,7 +11,7 @@ export const useSignup = () => {
     setIsLoading(true)
     setIserror(null)
 
-    const response = await fetch('http://localhost:8000/api/signup', {
+    const response = await fetch(Back_end_Url+'/api/signup', {
       method: 'POST',
       headers: {'Content-Type': 'application/json',
                 'Accept': 'application/json'
