@@ -23,19 +23,24 @@ const [status,setStatus]=useState("")
   const handelSubmit=async(e)=>{
      e.preventDefault()
 
-    try {
+
         await axios.post(`${Back_end_Url}/api/restpassword`,{email}).then((response)=>{
 
 
-            console.log(response.data.status);
-            setStatus(response.data.status)
-        });
-    } catch (e) {
-        if (e.response.status === 422) {
-            setStatus(e.response.data.error);
-        }
+            console.log(response);
+            setStatus(response.data.message)
+        })
+        .catch (({response})=>{
+            if (response.status === 422) {
+                setError(response.data.message);
 
-    }
+            } else {
+                setError(response.data);
+                console.log(error);
+
+            }
+        }
+        )
 
 
 

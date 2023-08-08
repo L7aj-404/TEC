@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -84,25 +85,49 @@ try {
     }
 
     public function restpassword(Request $request){
+        try{
           $request->validate(['email'=>'required|email|exists:users,email']);
           $response = Password::sendResetLink(
             $request->only('email')
           );
 
           return  $response == Password::RESET_LINK_SENT
-          ?response()->json(['message' => 'Reset link sent successfully'],200)
+          ?response()->json(['message' => 'Reset link sent successfully'],201)
           :response()->json(['error' => 'Unaoble to send reset link'],422);
+        } catch (\Throwable $th) {
+            throw $th;
 
+        }
     }
     public function Verifypassword(Request $request){
-        //   $request->validate(['email'=>'required|email|exists:users,email']);
-        //   $response = Password::sendResetLink(
-        //     $request->only('email')
-        //   );
+        $request->validate([
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:8|confirmed',
+        ]);
 
-        //   return  $response == Password::RESET_LINK_SENT
-        //   ?response()->json(['message' => 'Reset link sent successfully'],200)
-        //   :response()->json(['error' => 'Unaoble to send reset link'],422);
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation','token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        return $status === Password::PASSWORD_RESET
+
+          ?response()->json(['message' => 'Reset Password successfully',
+                              'status'=>201
+                            ])
+          :response()->json(['error' => 'Unaoble to reset Password',
+                             'status'=>422
+
+                            ]);
 
     }
     public function info($id){
