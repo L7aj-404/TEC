@@ -57,9 +57,6 @@ function About() {
                     <td>{item.title}</td>
                     <td>{item.description}</td>
                     <td>
-                        <button className='bttn' >
-                            <FontAwesomeIcon icon={faEdit} size="lg" color="#333" style={{ marginRight: '10px' }} />
-                            </button>
                         <button className='bttn'>
                             <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteService(item.id)} />
                         </button>

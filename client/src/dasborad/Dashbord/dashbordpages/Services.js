@@ -59,16 +59,14 @@ function Services() {
                     <td>{service.description}</td>
                     <td><img className='w-100' src={`http://localhost:8000/storage/${service.image}`}/></td>
 
-                    <td>
-                        <button className='bttn' >
-                            <FontAwesomeIcon icon={faEdit} size="lg" color="#333" style={{ marginRight: '10px' }} />
-                            </button>
-                        <button className='bttn'>
+                    <td className='d-flex'>
+
+                        <button className='btn'>
                             <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteService(service.id)} />
                         </button>
-                        <button className='bttn'>
+                        <button className='btn'>
 
-                            <Link to={'/addaxeservice/'+service.id} className='btn btn-warning'>+ Axe</Link>
+                            <Link to={'/addaxeservice/'+service.id} className='btn btn-warning'>Axe</Link>
                         </button>
 
                     </td>

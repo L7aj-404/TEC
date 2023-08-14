@@ -25,7 +25,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         ResetPassword::createUrlUsing(function(User $user , String $token){
-            return 'http://localhost:3000/Verifypassword/'.$user->id.'/'.$token;
+            return config('app.client').'/Verifypassword/'.$user->id.'/'.$token;
         });
     }
 }

@@ -73,9 +73,7 @@ function Requests() {
                     <td>{request.phone}</td>
                     <td>{request.comment}</td>
                     <td>
-                        <button className='btn' >
-                            <FontAwesomeIcon icon={faEdit} size="lg" color="#333" style={{ marginRight: '10px' }} />
-                            </button>
+                        
                         <button className='btn'>
                             <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteRequest(request.id)} />
                         </button>

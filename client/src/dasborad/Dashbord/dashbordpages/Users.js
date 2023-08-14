@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Back_end_Url } from '../../../api/URLs';
+import { Link } from 'react-router-dom';
 
 
 function Users() {
@@ -36,6 +37,7 @@ function Users() {
     return (
         <div className="container">
         <h1>Users</h1>
+        <Link to='/adduser' className="btn btn-primary">Add User</Link>
         <table className="table table-bordered">
             <thead className="thead-dark">
             <tr>
@@ -58,9 +60,6 @@ function Users() {
                     <td>{user.email}</td>
 
                     <td>
-                        <button className='btn' >
-                            <FontAwesomeIcon icon={faEdit} size="lg" color="#333" style={{ marginRight: '10px' }} />
-                            </button>
                         <button className='btn'>
                             <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteUser(user.id)} />
                         </button>

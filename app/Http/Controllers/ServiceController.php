@@ -44,7 +44,7 @@ class ServiceController extends Controller
 
             $imageName=Str::random(32).".".$image->getClientOriginalExtension();
 
-            Storage::disk('public/service')->put($imageName, file_get_contents($image));
+            Storage::disk('public')->put($imageName, file_get_contents($image));
 
 
             $service =new Service();
@@ -89,6 +89,7 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         $service=Service::find($id);
+        DB::table('axes')->where('servic_id',$id)->delete();
         $service->delete();
     }
 }

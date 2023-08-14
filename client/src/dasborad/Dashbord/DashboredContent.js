@@ -8,11 +8,12 @@ import Requests from './dashbordpages/Requests'
 import Services from './dashbordpages/Services'
 import { useAuth } from '../../hook/useAuth';
 import Homepage from '../../pages/Homepage';
-import AddPost from './dashbordpages/AddPost';
-import AddService from './dashbordpages/AddService';
-import AddServiceAxes from './dashbordpages/AddServiceAxes';
+import AddPost from './dashbordpages/add/AddPost';
+import AddService from './dashbordpages/add/AddService';
+import AddServiceAxes from './dashbordpages/add/AddServiceAxes';
 import About from './dashbordpages/About';
-import AddAbout from './dashbordpages/AddAbout';
+import AddAbout from './dashbordpages/add/AddAbout';
+import AddUser from './dashbordpages/add/AddUser';
 const DashboredContent = () => {
 
   const {user} =useAuth()
@@ -30,6 +31,7 @@ const DashboredContent = () => {
     <Route  path="/addaxeservice/:id" element={<AddServiceAxes/>}></Route>
     <Route  path="/about" element={<About/>}></Route>
     <Route  path="/addinfo" element={<AddAbout/>}></Route>
+    <Route  path="/adduser" element={<AddUser/>}></Route>
 
   </Routes>
   );

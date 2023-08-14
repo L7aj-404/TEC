@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 Route::post('/signup', [UserController::class,'signup']);
+Route::post('/adduser', [UserController::class,'addUser']);
 Route::post('/login', [UserController::class,'login']);
 Route::post('/restpassword', [UserController::class,'restpassword'])->middleware('guest');
 Route::post('/user/Verifypassword/{id}/{token}', [UserController::class,'Verifypassword'])->middleware('guest');

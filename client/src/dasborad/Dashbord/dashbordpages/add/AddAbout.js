@@ -1,23 +1,30 @@
-import { Avatar, Box, CssBaseline, Grid, TextField, Typography } from '@mui/material'
-import { TextareaAutosize } from '@mui/base'
+
 import React, { useState } from 'react'
+import { Avatar, Box, CssBaseline, Grid, TextField, Typography } from '@mui/material'
 import { Alert, Button, Container } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Back_end_Url } from '../../../api/URLs'
+import { Back_end_Url } from '../../../../api/URLs'
 
-function AddPost() {
+function AddAbout() {
     const [formdata, setFormData] = useState({})
     const [iserror, setIserror] = useState(null)
     const navigate = useNavigate()
-   async function handleSubmit(e) {
+
+
+    async function handleSubmit(e) {
         e.preventDefault();
         console.log('add post');
 
-            await axios.post(`${Back_end_Url}/api/poste`,formdata).then(({data})=>{
+        console.log(formdata);
+
+
+            await axios.post(`${Back_end_Url}/api/about`,formdata,{
+                headers:{'Content-Type':'multipart/form-data'}
+            }).then(({data})=>{
                 console.log(data.message);
 
-                navigate('/news')
+                navigate('/about')
             })
 
         .catch (({response})=>{
@@ -32,11 +39,10 @@ function AddPost() {
 
 
         })
+    }
 
-
-    };
-    return (
-        <Container component="main" >
+  return (
+    <Container component="main" >
             <CssBaseline />
             <Box
                 sm={{
@@ -52,7 +58,7 @@ function AddPost() {
                 {iserror && <Alert sx={{ width: "100px" }} severity="error">{iserror}</Alert>}
 
                 <Typography component="h1" variant="h5">
-                    Add Post
+                    Add Info
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 
@@ -79,30 +85,32 @@ function AddPost() {
 
                             required
                             fullWidth
-                            id="body"
-                            value={formdata.body}
-                            onChange={e => setFormData({ ...formdata, body: e.target.value })}
-                            label="Body"
-                            name="body"
+                            id="description"
+                            value={formdata.description}
+                            onChange={e => setFormData({ ...formdata, description: e.target.value })}
+                            label="Description"
+                            name="description"
                             autoComplete="add-content"
                         />
                     </Grid>
 
                     <br/>
+
                     <Button
-                        type="submit"
                         className="btn btn-primary"
+                        type="submit"
+
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Add Post
+                        Add Info
                     </Button>
 
                 </Box>
             </Box>
 
         </Container>
-    )
+  )
 }
 
-export default AddPost
+export default AddAbout

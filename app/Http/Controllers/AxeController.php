@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Axe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\Foreach_;
 
 class AxeController extends Controller
@@ -57,9 +58,10 @@ class AxeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Axe $axe)
+    public function show($id)
     {
-        //
+        $axes = DB::table('axes')->where('servic_id',$id)->get();
+        return $axes;
     }
 
     /**
@@ -81,8 +83,10 @@ class AxeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Axe $axe)
+    public function destroy($id)
     {
-        //
+        $axe=Axe::find($id);
+
+        $axe->delete();
     }
 }

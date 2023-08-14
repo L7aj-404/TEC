@@ -1,30 +1,23 @@
-
-import React, { useState } from 'react'
 import { Avatar, Box, CssBaseline, Grid, TextField, Typography } from '@mui/material'
+import { TextareaAutosize } from '@mui/base'
+import React, { useState } from 'react'
 import { Alert, Button, Container } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Back_end_Url } from '../../../api/URLs'
+import { Back_end_Url } from '../../../../api/URLs'
 
-function AddService() {
+function AddPost() {
     const [formdata, setFormData] = useState({})
     const [iserror, setIserror] = useState(null)
     const navigate = useNavigate()
-
-
-    async function handleSubmit(e) {
+   async function handleSubmit(e) {
         e.preventDefault();
         console.log('add post');
 
-        console.log(formdata);
-
-
-            await axios.post(`${Back_end_Url}/api/service`,formdata,{
-                headers:{'Content-Type':'multipart/form-data'}
-            }).then(({data})=>{
+            await axios.post(`${Back_end_Url}/api/poste`,formdata).then(({data})=>{
                 console.log(data.message);
 
-                navigate('/services')
+                navigate('/news')
             })
 
         .catch (({response})=>{
@@ -39,10 +32,11 @@ function AddService() {
 
 
         })
-    }
 
-  return (
-    <Container component="main" >
+
+    };
+    return (
+        <Container component="main" >
             <CssBaseline />
             <Box
                 sm={{
@@ -58,7 +52,7 @@ function AddService() {
                 {iserror && <Alert sx={{ width: "100px" }} severity="error">{iserror}</Alert>}
 
                 <Typography component="h1" variant="h5">
-                    Add Service
+                    Add Post
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 
@@ -85,44 +79,30 @@ function AddService() {
 
                             required
                             fullWidth
-                            id="description"
-                            value={formdata.description}
-                            onChange={e => setFormData({ ...formdata, description: e.target.value })}
-                            label="Description"
-                            name="description"
+                            id="body"
+                            value={formdata.body}
+                            onChange={e => setFormData({ ...formdata, body: e.target.value })}
+                            label="Body"
+                            name="body"
                             autoComplete="add-content"
                         />
                     </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            required
-                            fullWidth
-                            id="image"
 
-                            onChange={e => setFormData({ ...formdata, image: e.target.files[0] })}
-
-                            name="image"
-                            type='file'
-                            autoComplete="add-content"
-                        />
-                    </Grid>
                     <br/>
-
                     <Button
-                        className="btn btn-primary"
                         type="submit"
-
+                        className="btn btn-primary"
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Add Service
+                        Add Post
                     </Button>
 
                 </Box>
             </Box>
 
         </Container>
-  )
+    )
 }
 
-export default AddService
+export default AddPost

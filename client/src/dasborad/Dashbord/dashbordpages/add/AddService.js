@@ -4,9 +4,9 @@ import { Avatar, Box, CssBaseline, Grid, TextField, Typography } from '@mui/mate
 import { Alert, Button, Container } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { Back_end_Url } from '../../../api/URLs'
+import { Back_end_Url } from '../../../../api/URLs'
 
-function AddAbout() {
+function AddService() {
     const [formdata, setFormData] = useState({})
     const [iserror, setIserror] = useState(null)
     const navigate = useNavigate()
@@ -19,12 +19,12 @@ function AddAbout() {
         console.log(formdata);
 
 
-            await axios.post(`${Back_end_Url}/api/about`,formdata,{
+            await axios.post(`${Back_end_Url}/api/service`,formdata,{
                 headers:{'Content-Type':'multipart/form-data'}
             }).then(({data})=>{
                 console.log(data.message);
 
-                navigate('/about')
+                navigate('/services')
             })
 
         .catch (({response})=>{
@@ -58,7 +58,7 @@ function AddAbout() {
                 {iserror && <Alert sx={{ width: "100px" }} severity="error">{iserror}</Alert>}
 
                 <Typography component="h1" variant="h5">
-                    Add Info
+                    Add Service
                 </Typography>
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
 
@@ -93,7 +93,19 @@ function AddAbout() {
                             autoComplete="add-content"
                         />
                     </Grid>
+                    <Grid item xs={12}>
+                        <TextField
+                            required
+                            fullWidth
+                            id="image"
 
+                            onChange={e => setFormData({ ...formdata, image: e.target.files[0] })}
+
+                            name="image"
+                            type='file'
+                            autoComplete="add-content"
+                        />
+                    </Grid>
                     <br/>
 
                     <Button
@@ -103,7 +115,7 @@ function AddAbout() {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Add Info
+                        Add Service
                     </Button>
 
                 </Box>
@@ -113,4 +125,4 @@ function AddAbout() {
   )
 }
 
-export default AddAbout
+export default AddService

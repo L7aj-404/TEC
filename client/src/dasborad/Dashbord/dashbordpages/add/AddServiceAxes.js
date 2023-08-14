@@ -1,13 +1,16 @@
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Box, CssBaseline, Grid, TextField, Typography } from '@mui/material'
 import { Alert, Button, Container } from 'react-bootstrap'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
-import { Back_end_Url } from '../../../api/URLs'
+import { Back_end_Url } from '../../../../api/URLs'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 function AddServiceAxes() {
     const {id}=useParams()
+    const [dataAxeApi, setdataAxeApi] = useState([])
     const [dataAxe, setDataAxe] = useState({
         servic_id:id,
     })
@@ -16,6 +19,29 @@ function AddServiceAxes() {
     const [iserror, setIserror] = useState(null)
     const [countInput, setCountInput] = useState([])
     const navigate = useNavigate()
+
+    useEffect(() => {
+        async function fetchAxe() {
+            try {
+                const response = await axios.get(Back_end_Url+'/api/axe/'+id);
+                setdataAxeApi(response.data);
+                console.log(response.data); // Check if data is received
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchAxe();
+    }, []);
+
+    async function handleDeleteAxe(id) {
+        console.log('Deleting axe with id:', id);
+        try {
+            await axios.delete(`${Back_end_Url}/api/axe/${id}`);
+            setdataAxeApi(dataAxeApi.filter(axe => axe.id !== id));
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     const addAxe =()=>{
         setCountInput(s=>{
@@ -78,6 +104,9 @@ function AddServiceAxes() {
 
         })
     }
+    const handleCancel=(id) =>{
+       setarrdataAxe((id)=>{ return arrdataAxe.splice(id,1)})
+    }
 
   return (
     <Container component="main" >
@@ -97,8 +126,27 @@ function AddServiceAxes() {
                 {iserror && <Alert sx={{ width: "100px" }} severity="error">{iserror}</Alert>}
 
                 <Typography component="h1" variant="h5">
-                    Add Service
+                    Add Axe of Service
                 </Typography>
+                {
+                                                dataAxeApi.map((item,index)=>{
+
+                                                        return (
+                                                            <table className="table table-bordered">
+                                                                <tr key={index}>
+                                                                    <td>{item.titleAxe}</td>
+                                                                    <td>{item.descriptionAxe}</td>
+                                                                    <td>
+                                                                        <button className='btn' >
+                                                                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={(e) => handleDeleteAxe(item.id)}/>
+                                                                         </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        )
+
+                                                })
+                                            }
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <br/>
                     <Button
@@ -126,6 +174,10 @@ function AddServiceAxes() {
                                                                 <tr>
                                                                     <td>{item.titleAxe}</td>
                                                                     <td>{item.descriptionAxe}</td>
+                                                                    <td><button className='bttn' onClick={(e) => handleCancel(indexarr)}>
+                                                                            X
+                                                                         </button>
+                                                                    </td>
                                                                 </tr>
                                                             </table>
                                                         )
@@ -140,7 +192,7 @@ function AddServiceAxes() {
                                     <TextField
                                         autoComplete="given-title"
                                         name={`titleAxe`}
-                                        value={dataAxe.titleAxe}
+
                                         onChange={({target:{name ,value}}) =>  {
                                             setDataAxe({ ...dataAxe, [name]:value})
 
@@ -148,7 +200,7 @@ function AddServiceAxes() {
 
                                         fullWidth
                                         id="titleAxe"
-                                        label={`TitleAxe${index}`}
+                                        label={`TitleAxe`}
                                         autoFocus
                                     />
                                     </Grid>
@@ -163,7 +215,7 @@ function AddServiceAxes() {
 
                                         fullWidth
                                         id="descriptionAxe"
-                                        value={dataAxe.descriptionAxe}
+
                                         onChange={({target:{name ,value}}) =>  {
                                             setDataAxe({ ...dataAxe, [name]:value})
 
@@ -198,7 +250,7 @@ function AddServiceAxes() {
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
                     >
-                        Add Service
+                        Save
                     </Button>
 
                 </Box>
