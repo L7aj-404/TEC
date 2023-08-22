@@ -125,28 +125,7 @@ function AddServiceAxes() {
 
                 {iserror && <Alert sx={{ width: "100px" }} severity="error">{iserror}</Alert>}
 
-                <Typography component="h1" variant="h5">
-                    Add Axe of Service
-                </Typography>
-                {
-                                                dataAxeApi.map((item,index)=>{
 
-                                                        return (
-                                                            <table className="table table-bordered">
-                                                                <tr key={index}>
-                                                                    <td>{item.titleAxe}</td>
-                                                                    <td>{item.descriptionAxe}</td>
-                                                                    <td>
-                                                                        <button className='btn' >
-                                                                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={(e) => handleDeleteAxe(item.id)}/>
-                                                                         </button>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        )
-
-                                                })
-                                            }
                 <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                     <br/>
                     <Button
@@ -232,7 +211,7 @@ function AddServiceAxes() {
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
                                 >
-                                    Add Axe
+                                     <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" />
                                 </Button>
                                 </>
                                 )
@@ -255,7 +234,28 @@ function AddServiceAxes() {
 
                 </Box>
             </Box>
+            <Typography component="h1" variant="h5">
+                    Liste Axe of Service
+                </Typography>
+                {
+                                                dataAxeApi.map((item,index)=>{
 
+                                                        return (
+                                                            <table className="table table-bordered">
+                                                                <tr key={index}>
+                                                                    <td>{item.titleAxe}</td>
+                                                                    <td>{item.descriptionAxe}</td>
+                                                                    <td>
+                                                                        <button className='btn' >
+                                                                            <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={(e) => handleDeleteAxe(item.id)}/>
+                                                                         </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        )
+
+                                                })
+                                            }
         </Container>
   )
 }

@@ -14,6 +14,7 @@ import AddServiceAxes from './dashbordpages/add/AddServiceAxes';
 import About from './dashbordpages/About';
 import AddAbout from './dashbordpages/add/AddAbout';
 import AddUser from './dashbordpages/add/AddUser';
+import ProjectType from './dashbordpages/ProjectType';
 const DashboredContent = () => {
 
   const {user} =useAuth()
@@ -32,6 +33,7 @@ const DashboredContent = () => {
     <Route  path="/about" element={<About/>}></Route>
     <Route  path="/addinfo" element={<AddAbout/>}></Route>
     <Route  path="/adduser" element={<AddUser/>}></Route>
+    <Route  path="/projecttype" element={<ProjectType/>}></Route>
 
   </Routes>
   );

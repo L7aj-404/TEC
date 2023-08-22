@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Back_end_Url } from '../../../api/URLs'
+import { Link } from 'react-router-dom';
 
 
 function Requests() {
@@ -46,7 +47,12 @@ function Requests() {
 
     return (
         <div className="container">
-        <h1>Requests</h1>
+            <div className='d-flex justify-content-between'>
+                <h1>Requests</h1>
+                <Link to='/projecttype'className="btn btn-primary">
+                    List of projects types
+                </Link>
+            </div>
         <table className="table table-bordered">
             <thead className="thead-dark">
             <tr>
@@ -73,7 +79,7 @@ function Requests() {
                     <td>{request.phone}</td>
                     <td>{request.comment}</td>
                     <td>
-                        
+
                         <button className='btn'>
                             <FontAwesomeIcon icon={faTrashAlt} size="lg" color="#333" onClick={() => handleDeleteRequest(request.id)} />
                         </button>

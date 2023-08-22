@@ -16,9 +16,9 @@ import { Alert } from 'react-bootstrap';
 
 import { useNavigate } from "react-router-dom"
 import axios from 'axios'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from '../hook/useTheme';
-import {Back_end_Url} from '../api/URLs'
+import { Back_end_Url } from '../api/URLs'
 
 
 
@@ -28,35 +28,48 @@ import {Back_end_Url} from '../api/URLs'
 
 
 export default function Requiste() {
+    const [projectType, setProjectType] = useState([])
     const [formdata, setFormdata] = useState({})
     const [iserror, setIserror] = useState(null)
-    const {theme}=useTheme()
+    const { theme } = useTheme()
     const navigate = useNavigate()
+    useEffect(() => {
+        async function fetchAxe() {
+            try {
+                const response = await axios.get(Back_end_Url + '/api/project');
+                setProjectType(response.data);
+                console.log(response.data); // Check if data is received
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchAxe();
+    },[]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log('add post');
 
         console.log(formdata);
-        if (formdata.phone===formdata.phone_confirmation) {
-            await axios.post(Back_end_Url+`/api/requeste`,formdata).then(({data})=>{
+        if (formdata.phone === formdata.phone_confirmation) {
+            await axios.post(Back_end_Url + `/api/requeste`, formdata).then(({ data }) => {
                 console.log(data.message);
 
                 navigate('/')
             })
 
-        .catch (({response})=>{
-            if (response.status === 422) {
-                setIserror(response.data.message);
+                .catch(({ response }) => {
+                    if (response.status === 422) {
+                        setIserror(response.data.message);
 
-            } else {
-                setIserror(response.data);
-                console.log(iserror);
+                    } else {
+                        setIserror(response.data);
+                        console.log(iserror);
 
-            }
+                    }
 
 
-        })
+                })
         } else {
             setIserror("The Phone Number not Matched")
         }
@@ -69,7 +82,7 @@ export default function Requiste() {
 
     return (
 
-        <Container component="main" maxWidth="lg"  style={{ color: theme=="dark" ? "white" : "black" }}>
+        <Container component="main" maxWidth="lg" style={{ color: theme == "dark" ? "white" : "black" }}>
             <CssBaseline />
             <Box
                 sx={{
@@ -82,21 +95,19 @@ export default function Requiste() {
             >
 
 
-                {iserror && <Alert sx={{width:"100px"}}  severity="error">{iserror}</Alert>}
-                <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                    <LockOutlinedIcon />
-                </Avatar>
+                {iserror && <Alert sx={{ width: "100px" }} severity="error">{iserror}</Alert>}
+
                 <Typography component="h1" variant="h5">
-                START A PROJECT
+                    START A PROJECT
                 </Typography>
-                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }} style={{ backgroundColor:"white",borderRadius:'20px',padding:'3rem'}}>
+                <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }} style={{ backgroundColor: "white", borderRadius: '20px', padding: '3rem' }}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
                                 autoComplete="given-name"
                                 name="firstName"
                                 value={formdata.firstname}
-                                onChange={e => setFormdata({...formdata, firstname:e.target.value})}
+                                onChange={e => setFormdata({ ...formdata, firstname: e.target.value })}
                                 required
                                 fullWidth
                                 id="firstName"
@@ -110,7 +121,7 @@ export default function Requiste() {
                                 fullWidth
                                 id="lastname"
                                 value={formdata.lastname}
-                                onChange={e => setFormdata({...formdata, lastname:e.target.value})}
+                                onChange={e => setFormdata({ ...formdata, lastname: e.target.value })}
                                 label="Last Name"
                                 name="lastname"
                                 autoComplete="family-name"
@@ -122,30 +133,45 @@ export default function Requiste() {
                                 fullWidth
                                 id="companyName"
                                 value={formdata.companyName}
-                                onChange={e => setFormdata({...formdata, companyName:e.target.value})}
+                                onChange={e => setFormdata({ ...formdata, companyName: e.target.value })}
                                 label="Enter your Company Name"
                                 name="companyName"
                                 autoComplete="companyName"
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
+                            <select
                                 required
-                                fullWidth
+                                className='form-select'
                                 id="peojectType"
                                 value={formdata.peojectType}
-                                onChange={e => setFormdata({...formdata, peojectType:e.target.value})}
-                                label="Peoject Type "
+                                onChange={e => setFormdata({ ...formdata, peojectType: e.target.value })}
                                 name="peojectType"
-                                autoComplete="peojectType"
-                            />
+                            >
+                                <option selected>Type of your Project</option>
+                                {
+                                    projectType.map((item, index) => {
+
+                                        return (
+
+                                            <option key={index} value={item.title}>
+
+                                                {item.title}
+
+                                            </option>
+
+                                        )
+
+                                    })
+                                }
+                            </select>
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 required
                                 fullWidth
                                 value={formdata.email}
-                                onChange={e => setFormdata({...formdata, email:e.target.value})}
+                                onChange={e => setFormdata({ ...formdata, email: e.target.value })}
                                 name="email"
                                 label="email"
                                 type="email"
@@ -158,7 +184,7 @@ export default function Requiste() {
                                 required
                                 fullWidth
                                 value={formdata.phone}
-                                onChange={e => setFormdata({...formdata, phone:e.target.value})}
+                                onChange={e => setFormdata({ ...formdata, phone: e.target.value })}
                                 name="phone"
                                 label="tele"
                                 type="phone"
@@ -171,7 +197,7 @@ export default function Requiste() {
                                 required
                                 fullWidth
                                 value={formdata.phone_confirmation}
-                                onChange={e => setFormdata({...formdata, phone_confirmation:e.target.value})}
+                                onChange={e => setFormdata({ ...formdata, phone_confirmation: e.target.value })}
                                 name="phone_confirmation"
                                 label="phone_confirmation"
                                 type="tele"
@@ -181,20 +207,20 @@ export default function Requiste() {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                            inputProps={{style:{height:70}}}
-                            variant='outlined'
-                            multiline
-                            minRows={5}
+                                inputProps={{ style: { height: 70 } }}
+                                variant='outlined'
+                                multiline
+                                minRows={5}
 
-                            required
-                            fullWidth
-                            id="comment"
-                            value={formdata.comment}
-                            onChange={e => setFormdata({ ...formdata, comment: e.target.value })}
-                            label="comment"
-                            name="comment"
-                            autoComplete="add-content"
-                        />
+                                required
+                                fullWidth
+                                id="comment"
+                                value={formdata.comment}
+                                onChange={e => setFormdata({ ...formdata, comment: e.target.value })}
+                                label="comment"
+                                name="comment"
+                                autoComplete="add-content"
+                            />
                         </Grid>
 
                     </Grid>

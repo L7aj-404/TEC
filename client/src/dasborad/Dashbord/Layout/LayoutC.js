@@ -8,10 +8,10 @@ export default function LayoutC({children}) {
   return (
     <Conatiner>
 
-     
+
       {/* <SlideBar/> */}
       <div className='slide'>
- 
+
       <SlideBar/>
 
       </div>
@@ -22,7 +22,7 @@ export default function LayoutC({children}) {
         {children}
       </div>
       </div>
-  
+
     </Conatiner>
   )
 }
@@ -52,7 +52,7 @@ flex:1.1 ;
  .content{
   background-color:hsl(0,0%,95%);
   padding: 5vw 20px;
-  height:100vh; 
+  
  }
 
 

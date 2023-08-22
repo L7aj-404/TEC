@@ -42,7 +42,7 @@ export const ContainerComponent=styled(Container)`
 display:flex;
 justify-content:center;
 align-items:center;
-height:85vh;
+height:max-content;
 ${Container}
 
 `

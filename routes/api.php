@@ -3,6 +3,7 @@
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AxeController;
 use App\Http\Controllers\PosteController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RequesteController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
@@ -40,4 +41,5 @@ Route::resource('service',ServiceController::class);
 Route::resource('axe',AxeController::class);
 Route::get('about',[AboutController::class,'index']);
 Route::post('about',[AboutController::class,'store']);
+Route::resource('project',ProjectController::class);
 
